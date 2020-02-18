@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import api from "../api";
+import { fetchDevelopers } from "../store/actions";
+// import api from "../api";
+// import { developersFetched } from "../store/developersActions";
 
 class DevelopersList extends React.Component {
   componentDidMount() {
@@ -13,14 +15,8 @@ class DevelopersList extends React.Component {
     //       developers: data.rows
     //     });
     //   });
-    api("/developers?limit=20").then(data => {
-      console.log(data);
-      // Tell the Redux store the data has been fetched
-      this.props.dispatch({
-        type: "FETCHED_DEVELOPERS",
-        payload: data.rows
-      });
-    });
+    this.props.dispatch(fetchDevelopers);
+    console.log("compDidMount");
   }
 
   render() {
