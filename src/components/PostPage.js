@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchPost } from "../store/post/postActions";
+import ReactMarkdown from "react-markdown";
 
 class PostPage extends React.Component {
   componentDidMount() {
@@ -10,11 +11,20 @@ class PostPage extends React.Component {
   }
 
   render() {
-    const title = "??";
+    const post = this.props.post;
+    if (!post.showPost || !post.comments) {
+      return <p>"Loading..."</p>;
+    }
+    console.log("render", post.showPost);
     return (
       <div>
-        <h1>{this.props.post.title}</h1>
-        <p>{this.props.post.content}</p>
+        <h1>{post.showPost.title}</h1>
+        <ReactMarkdown source={post.showPost.content} />
+        <ul>
+          {this.props.post.comments.map(comm => {
+            return <li key={comm.id}>{comm.text}</li>;
+          })}
+        </ul>
       </div>
     );
   }
