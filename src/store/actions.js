@@ -1,5 +1,5 @@
 import api from "../api";
-import { developersFetched } from "./developersActions";
+import { developersFetched } from "./developers/developersActions";
 
 export function fetchDevelopers(dispatch, getState) {
   api("/developers?limit=20").then(data => {
